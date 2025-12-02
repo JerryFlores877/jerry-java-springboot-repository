@@ -9,10 +9,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/cruises")
 public class CruiseController {
@@ -38,7 +40,7 @@ public class CruiseController {
 
     // Read One by ID - GET
     @GetMapping("/{id}")
-    public ResponseEntity<CruiseResponseDTO> getCruiseById(@PathVariable Long id) {
+    public ResponseEntity<CruiseResponseDTO> getCruiseById(@PathVariable @Min(1) Long id) {
         CruiseResponseDTO cruise = cruiseService.getCruiseById(id);
         return ResponseEntity.ok(cruise);
     }
